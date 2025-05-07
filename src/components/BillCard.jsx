@@ -1,5 +1,6 @@
 import React from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { Link } from "react-router";
 
 const BillCard = ({ bill }) => {
   const { id, bill_type, icon, organization, "due-date": dueDate } = bill || {};
@@ -25,9 +26,11 @@ const BillCard = ({ bill }) => {
           <FaRegCalendarAlt className="text-gray-400" />
           {new Date(dueDate).toLocaleDateString()}
         </p>
-        <button className="mt-2 bg-secondary text-white font-medium py-1.5 px-4 rounded-lg cursor-pointer">
-          See Details
-        </button>
+        <Link to={`/bill/${id}`}>
+          <button className="mt-2 bg-secondary text-white font-medium py-1.5 px-4 rounded-lg cursor-pointer">
+            See Details
+          </button>
+        </Link>
       </div>
     </div>
   );

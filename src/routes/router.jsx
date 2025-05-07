@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home";
 import Bills from "../pages/Bills";
+import Spinner from "../components/Spinner";
+import BillDetails from "../pages/BillDetails";
 
 const router = createBrowserRouter([
   {
@@ -14,8 +16,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/bills",
+        hydrateFallbackElement: <Spinner></Spinner>,
         loader: () => fetch("/bills.json"),
         Component: Bills,
+      },
+      {
+        path: "/bill/:id",
+        hydrateFallbackElement: <Spinner></Spinner>,
+        loader: () => fetch("/bills.json"),
+        Component: BillDetails,
       },
       {
         path: "/profile",
