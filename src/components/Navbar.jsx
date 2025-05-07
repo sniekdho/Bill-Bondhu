@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import logo from "../../public/invoice.png";
 
 const Navbar = () => {
@@ -77,8 +77,18 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end gap-3">
-        <a className="btn bg-secondary text-white font-semibold">Login</a>
-        <a className="btn bg-secondary text-white font-semibold">Register</a>
+        <Link
+          to="/auth/login"
+          className="btn bg-secondary text-white font-semibold"
+        >
+          Login
+        </Link>
+        <Link
+          to="/auth/register"
+          className="btn bg-secondary text-white font-semibold"
+        >
+          Register
+        </Link>
       </div>
     </div>
   );

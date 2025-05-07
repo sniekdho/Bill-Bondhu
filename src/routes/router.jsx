@@ -4,6 +4,9 @@ import Home from "../pages/Home";
 import Bills from "../pages/Bills";
 import Spinner from "../components/Spinner";
 import BillDetails from "../pages/BillDetails";
+import AuthLayout from "../layouts/AuthLayout";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +35,21 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/auth",
+    Component: AuthLayout,
+    children: [
+      {
+        path: "/auth/login",
+        Component: Login,
+      },
+      {
+        path: "/auth/register",
+        Component: Register,
+      },
+    ],
+  },
+
   {
     path: "/*",
     element: <h2>Wrong Url</h2>,
