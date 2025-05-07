@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home";
+import Bills from "../pages/Bills";
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/bills",
-        element: <h2>All Bills</h2>,
+        loader: () => fetch("/bills.json"),
+        Component: Bills,
       },
       {
         path: "/profile",

@@ -9,12 +9,11 @@ const RootLayout = () => {
     <div className="bg-gray-100">
       <header>
         <Navbar></Navbar>
-        <Banner></Banner>
       </header>
       <main>
         <Outlet></Outlet>
       </main>
-      <footer className="mt-20">
+      <footer>
         <Footer></Footer>
       </footer>
     </div>

@@ -3,7 +3,7 @@ import logo from "../../public/invoice.png";
 
 const Footer = () => {
   return (
-    <footer className="footer footer-horizontal footer-center bg-base-300 text-accent p-10">
+    <footer className="footer footer-horizontal footer-center bg-neutral-900 text-accent p-10">
       <aside>
         <img src={logo} alt="logo" className="w-16 h-16" />
         <p className="font-bold">
