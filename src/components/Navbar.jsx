@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router";
+import logo from "../../public/invoice.png";
 
 const Navbar = () => {
   const links = (
@@ -7,7 +8,7 @@ const Navbar = () => {
       <li className="mr-2.5 font-bold">
         <NavLink
           className={({ isActive }) =>
-            isActive ? "text-white bg-primary" : ""
+            isActive ? "bg-primary text-white px-3 py-1 rounded" : "px-3 py-1"
           }
           to="/"
         >
@@ -17,7 +18,7 @@ const Navbar = () => {
       <li className="mr-2.5 font-bold">
         <NavLink
           className={({ isActive }) =>
-            isActive ? "text-white bg-primary" : ""
+            isActive ? "bg-primary text-white px-3 py-1 rounded" : "px-3 py-1"
           }
           to="/bills"
         >
@@ -27,7 +28,7 @@ const Navbar = () => {
       <li className="mr-2.5 font-bold">
         <NavLink
           className={({ isActive }) =>
-            isActive ? "text-white bg-primary" : ""
+            isActive ? "bg-primary text-white px-3 py-1 rounded" : "px-3 py-1"
           }
           to="/profile"
         >
@@ -37,7 +38,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-300 shadow-sm">
+    <div className="navbar bg-base-300 shadow-sm fixed top-0 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -63,7 +64,14 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="text-xl font-extrabold cursor-pointer">BillBondhu</a>
+        <a className="flex items-center text-xl font-extrabold cursor-pointer">
+          <img
+            src={logo}
+            alt="logo"
+            className="hidden md:inline-block w-8 h-8 mr-2"
+          />
+          PayBondhu
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
