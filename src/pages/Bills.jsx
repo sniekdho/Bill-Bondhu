@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router";
 import BillCard from "../components/BillCard";
 import { getStoredBill } from "../utils/localStorageBills";
@@ -8,10 +8,24 @@ const Bills = () => {
 
   const storedBills = getStoredBill();
 
+  const [selectedType, setSelectedType] = useState("all");
+
   const billsWithStatus = bills.map((bill) => {
     const isPaid = storedBills.find((storedBill) => storedBill.id === bill.id);
     return { ...bill, isPaid };
   });
+
+  const billTypes = ["All"];
+  for (let bill of bills) {
+    if (!billTypes.includes(bill.bill_type)) {
+      billTypes.push(bill.bill_type);
+    }
+  }
+
+  const filteredBills =
+    selectedType === "all"
+      ? billsWithStatus
+      : billsWithStatus.filter((bill) => bill.bill_type === selectedType);
 
   return (
     <div className="mt-16 py-10">
@@ -24,10 +38,27 @@ const Bills = () => {
         of multiple apps and payment methods. Enjoy a streamlined experience
         with real-time updates, payment history, and instant confirmations.
       </p>
+
+      <div className="flex justify-center mt-6">
+        <select
+          value={selectedType}
+          onChange={(e) => setSelectedType(e.target.value)}
+          className="px-4 py-2 border rounded-md shadow-md text-gray-700"
+        >
+          {billTypes.map((type) => (
+            <option key={type} value={type}>
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className="grid gap-6 p-6 max-w-5xl mx-auto">
-        {billsWithStatus.map((bill) => (
-          <BillCard key={bill.id} bill={bill}></BillCard>
-        ))}
+        {filteredBills.length ? (
+          filteredBills.map((bill) => <BillCard key={bill.id} bill={bill} />)
+        ) : (
+          <p className="text-center text-gray-500">No bills found.</p>
+        )}
       </div>
     </div>
   );
