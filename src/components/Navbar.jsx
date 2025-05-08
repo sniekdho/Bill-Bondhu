@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import UserMenu from "./UserMenu";
 
 const Navbar = () => {
-  const { user } = use(AuthContext);
+  const { user, loading } = use(AuthContext);
 
   const links = (
     <>
@@ -81,9 +81,9 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end gap-3">
-        {user ? (
+        {!loading && user ? (
           <UserMenu />
-        ) : (
+        ) : !loading ? (
           <>
             <Link
               to="/auth/login"
@@ -98,7 +98,7 @@ const Navbar = () => {
               Register
             </Link>
           </>
-        )}
+        ) : null}
       </div>
     </div>
   );

@@ -1,6 +1,13 @@
-import React from "react";
+import React, { use } from "react";
+import { addBillToLS } from "../utils/localStorageBills";
+import { useNavigate } from "react-router";
+import { AuthContext } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const BillDetailsCard = ({ singleBill }) => {
+  const navigate = useNavigate();
+  const { user, setUser } = use(AuthContext);
+
   const {
     icon,
     bill_type,
@@ -8,6 +15,21 @@ const BillDetailsCard = ({ singleBill }) => {
     amount,
     "due-date": dueDate,
   } = singleBill || {};
+
+  const handlePayBill = () => {
+    if (amount > user.balance) {
+      toast.error("Insufficient balance to pay this bill.");
+      return;
+    }
+
+    const newBalance = user.balance - amount;
+    setUser({ ...user, balance: newBalance });
+
+    const success = addBillToLS(singleBill);
+    if (success) {
+      navigate("/bills");
+    }
+  };
 
   return (
     <div className="bg-white shadow-lg rounded-2xl p-6 flex flex-col md:flex-row items-center  gap-6 w-full max-w-4xl mx-auto">
@@ -37,7 +59,10 @@ const BillDetailsCard = ({ singleBill }) => {
           {new Date(dueDate).toLocaleDateString()}
         </p>
         <div className="pt-3">
-          <button className="bg-secondary text-white font-medium py-2 px-5 rounded-lg transition duration-300 w-full md:w-auto">
+          <button
+            onClick={handlePayBill}
+            className="bg-secondary text-white font-medium cursor-pointer py-2 px-5 rounded-lg transition duration-300 w-full md:w-auto"
+          >
             Pay Bill
           </button>
         </div>

@@ -1,9 +1,17 @@
 import React from "react";
 import { useLoaderData } from "react-router";
 import BillCard from "../components/BillCard";
+import { getStoredBill } from "../utils/localStorageBills";
 
 const Bills = () => {
   const bills = useLoaderData();
+
+  const storedBills = getStoredBill();
+
+  const billsWithStatus = bills.map((bill) => {
+    const isPaid = storedBills.find((storedBill) => storedBill.id === bill.id);
+    return { ...bill, isPaid };
+  });
 
   return (
     <div className="mt-16 py-10">
@@ -17,7 +25,7 @@ const Bills = () => {
         with real-time updates, payment history, and instant confirmations.
       </p>
       <div className="grid gap-6 p-6 max-w-5xl mx-auto">
-        {bills.map((bill) => (
+        {billsWithStatus.map((bill) => (
           <BillCard key={bill.id} bill={bill}></BillCard>
         ))}
       </div>

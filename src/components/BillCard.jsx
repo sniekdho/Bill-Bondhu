@@ -1,13 +1,20 @@
 import React from "react";
-import { FaRegCalendarAlt } from "react-icons/fa";
+import { FaCheckCircle, FaRegCalendarAlt } from "react-icons/fa";
 import { Link } from "react-router";
 
 const BillCard = ({ bill }) => {
-  const { id, bill_type, icon, organization, "due-date": dueDate } = bill || {};
+  const {
+    id,
+    bill_type,
+    icon,
+    organization,
+    "due-date": dueDate,
+    isPaid,
+  } = bill || {};
 
   return (
     <div className="bg-white shadow-md hover:shadow-xl rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between">
-      {/* Left: Icon */}
+      {/* Left: Icon and Info */}
       <div className="flex items-center gap-4">
         <img
           src={icon}
@@ -15,7 +22,15 @@ const BillCard = ({ bill }) => {
           className="w-16 h-16 object-contain rounded-full border p-2"
         />
         <div>
-          <h2 className="text-xl font-bold text-gray-800">{organization}</h2>
+          <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            {organization}
+            {isPaid && (
+              <FaCheckCircle
+                className="text-green-500 text-lg"
+                title="Bill Paid"
+              />
+            )}
+          </h2>
           <p className="text-sm text-gray-500 capitalize">{bill_type} Bill</p>
         </div>
       </div>

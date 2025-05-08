@@ -45,7 +45,7 @@ const UserMenu = () => {
             <p className="text-sm text-gray-600">
               Current Balance:{" "}
               <span className="font-semibold text-green-600">
-                ${user.balance}
+                ৳ {user.balance}
               </span>
             </p>
           </div>
