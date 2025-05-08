@@ -7,6 +7,7 @@ import BillDetails from "../pages/BillDetails";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -21,13 +22,21 @@ const router = createBrowserRouter([
         path: "/bills",
         hydrateFallbackElement: <Spinner></Spinner>,
         loader: () => fetch("/bills.json"),
-        Component: Bills,
+        element: (
+          <PrivateRoute>
+            <Bills></Bills>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/bill/:id",
         hydrateFallbackElement: <Spinner></Spinner>,
         loader: () => fetch("/bills.json"),
-        Component: BillDetails,
+        element: (
+          <PrivateRoute>
+            <BillDetails></BillDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/profile",

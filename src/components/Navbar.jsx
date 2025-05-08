@@ -1,8 +1,22 @@
-import React from "react";
+import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../../public/invoice.png";
+import { AuthContext } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const { user, signOutUser } = use(AuthContext);
+
+  const handleSignout = () => {
+    signOutUser()
+      .then(() => {
+        toast("Sign Out Successfully");
+      })
+      .catch((error) => {
+        toast(`${error.message}`);
+      });
+  };
+
   const links = (
     <>
       <li className="mr-2.5 font-bold">
@@ -77,18 +91,30 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end gap-3">
-        <Link
-          to="/auth/login"
-          className="btn bg-secondary text-white font-semibold"
-        >
-          Login
-        </Link>
-        <Link
-          to="/auth/register"
-          className="btn bg-secondary text-white font-semibold"
-        >
-          Register
-        </Link>
+        {user ? (
+          <Link
+            onClick={handleSignout}
+            to="/auth/login"
+            className="btn bg-secondary"
+          >
+            Log Out
+          </Link>
+        ) : (
+          <>
+            <Link
+              to="/auth/login"
+              className="btn bg-secondary text-white font-semibold"
+            >
+              Login
+            </Link>
+            <Link
+              to="/auth/register"
+              className="btn bg-secondary text-white font-semibold"
+            >
+              Register
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

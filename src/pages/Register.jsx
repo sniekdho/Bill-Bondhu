@@ -1,9 +1,76 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { IoIosEyeOff, IoMdEye } from "react-icons/io";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const Register = () => {
+  const { setUser, createUser, updateUserProfile } = use(AuthContext);
   const [showEye, setShowEye] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleSingUp = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const name = form.name.value;
+    const photoUrl = form.photoUrl.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    const passwordRules = [
+      { regex: /(?=.*\d)/, message: "Password must have at least one digit." },
+      {
+        regex: /(?=.*[a-z])/,
+        message: "Password must have at least one lowercase letter.",
+      },
+      {
+        regex: /(?=.*[A-Z])/,
+        message: "Password must have at least one uppercase letter.",
+      },
+      {
+        regex: /.{8,}/,
+        message: "Password must be at least 8 characters long.",
+      },
+    ];
+
+    for (let rule of passwordRules) {
+      if (!rule.regex.test(password)) {
+        toast.error(rule.message);
+        return;
+      }
+    }
+
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+
+        updateUserProfile({
+          displayName: name,
+          photoURL: photoUrl,
+          balance: 10000,
+        })
+          .then(() => {
+            setUser({
+              ...user,
+              displayName: name,
+              photoURL: photoUrl,
+              balance: 10000,
+            });
+            form.reset();
+            navigate(location?.state || "/");
+            toast.success("Account created successfully!");
+          })
+          .catch((error) => {
+            toast.error("Profile update failed: " + error.message);
+          });
+      })
+      .catch((error) => {
+        toast.error(`Registration failed: ${error.message}`);
+      });
+  };
 
   return (
     <div>
@@ -25,7 +92,7 @@ const Register = () => {
               Join our bill management system and pay with ease.
             </p>
 
-            <form className="space-y-4">
+            <form onSubmit={handleSingUp} className="space-y-4">
               <div>
                 <label className="label text-sm font-medium text-gray-700">
                   Name
@@ -48,6 +115,7 @@ const Register = () => {
                   name="photoUrl"
                   className="input input-bordered w-full"
                   placeholder="Profile Photo URL"
+                  required
                 />
               </div>
 
@@ -74,6 +142,7 @@ const Register = () => {
                     name="password"
                     className="input input-bordered w-full pr-10"
                     placeholder="Password"
+                    autoComplete="true"
                     required
                   />
                   <div

@@ -1,9 +1,34 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { IoIosEyeOff, IoMdEye } from "react-icons/io";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const { setUser, signInUser } = use(AuthContext);
   const [showEye, setShowEye] = useState(false);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signInUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        navigate(location?.state || "/");
+        alert("✅ Login Successful! Welcome, " + " 🎉");
+      })
+      .catch((error) => {
+        toast(`Login failed: ${error.message}`);
+      });
+  };
 
   return (
     <div>
@@ -26,7 +51,7 @@ const Login = () => {
               Login to your account to manage and pay your bills.
             </p>
 
-            <form className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-4">
               <div>
                 <label className="label text-sm font-medium text-gray-700">
                   Email
@@ -50,6 +75,7 @@ const Login = () => {
                     name="password"
                     className="input input-bordered w-full pr-10"
                     placeholder="Password"
+                    autoComplete="true"
                     required
                   />
                   <div
@@ -67,7 +93,7 @@ const Login = () => {
 
               <div className="flex justify-between items-center">
                 <Link
-                  to="/forgot-password"
+                  // to="/forgot-password"
                   className="text-sm text-indigo-500 hover:underline"
                 >
                   Forgot Password?
