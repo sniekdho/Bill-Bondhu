@@ -15,7 +15,7 @@ const Bills = () => {
     return { ...bill, isPaid };
   });
 
-  const billTypes = ["All"];
+  const billTypes = ["all"];
   for (let bill of bills) {
     if (!billTypes.includes(bill.bill_type)) {
       billTypes.push(bill.bill_type);

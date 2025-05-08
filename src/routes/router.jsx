@@ -10,6 +10,7 @@ import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../pages/Profile";
 import UpdateProfile from "../pages/UpdateProfile";
+import Error404 from "../pages/Error404";
 
 const router = createBrowserRouter([
   {
@@ -75,7 +76,7 @@ const router = createBrowserRouter([
 
   {
     path: "/*",
-    element: <h2>Wrong Url</h2>,
+    Component: Error404,
   },
 ]);
 

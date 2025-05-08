@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../../public/invoice.png";
 import { AuthContext } from "../contexts/AuthContext";
@@ -6,6 +6,8 @@ import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const { user, loading } = use(AuthContext);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const links = (
     <>
@@ -44,8 +46,11 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-300 shadow-sm fixed top-0 z-50">
       <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+        <div className="relative lg:hidden">
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="btn btn-ghost"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -60,22 +65,64 @@ const Navbar = () => {
                 d="M4 6h16M4 12h8m-8 6h16"
               />
             </svg>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            {links}
-          </ul>
+          </button>
+
+          {isDropdownOpen && (
+            <ul className="absolute top-full left-0 mt-2 w-48 bg-base-100 text-base-content rounded-box shadow-lg z-50 p-2 space-y-2.5">
+              <li className="font-bold">
+                <NavLink
+                  to="/"
+                  onClick={() => setIsDropdownOpen(false)}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-primary text-white px-3 py-1 rounded"
+                      : "px-3 py-1 hover:bg-gray-300 hover:rounded"
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li className="font-bold">
+                <NavLink
+                  to="/bills"
+                  onClick={() => setIsDropdownOpen(false)}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-primary text-white px-3 py-1 rounded"
+                      : "px-3 py-1 hover:bg-gray-300 hover:rounded"
+                  }
+                >
+                  Bills
+                </NavLink>
+              </li>
+              <li className="font-bold">
+                <NavLink
+                  to="/profile"
+                  onClick={() => setIsDropdownOpen(false)}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-primary text-white px-3 py-1 rounded"
+                      : "px-3 py-1 hover:bg-gray-300 hover:rounded"
+                  }
+                >
+                  Profile
+                </NavLink>
+              </li>
+            </ul>
+          )}
         </div>
-        <a className="flex items-center text-xl font-extrabold cursor-pointer">
+
+        <Link
+          to="/"
+          className="flex items-center text-xl font-extrabold cursor-pointer"
+        >
           <img
             src={logo}
             alt="logo"
             className="hidden md:inline-block w-8 h-8 mr-2"
           />
           PayBondhu
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
