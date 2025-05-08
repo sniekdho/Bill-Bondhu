@@ -1,56 +1,61 @@
-# PayBondhu
+# PayBondhu - A React-Based Payment Service Platform
 
-## Project Name
-PayBondhu - A React-based Payment Service Website
+## Overview
+**PayBondhu** is a modern and intuitive payment service platform built with React, designed to simplify bill payments for users. The website enables users to manage their utility bill payments (electricity, gas, internet, etc.) efficiently, track payment history, and update personal profiles seamlessly.
 
-## Purpose
-PayBondhu is a platform that allows users to pay various bills, such as electricity, gas, internet, and more. The website provides an easy and secure way to manage utility bill payments, update user profiles, and track payments.
+## Live Demo
+You can view the live demo of the application here:  
+[PayBondhu - Live Demo](https://pay-bondhu.netlify.app/)
 
-## Live URL
-[Visit PayBondhu](https://pay-bondhu.netlify.app/)
+## Features
+- **User Authentication**: Secure login and registration process, including Google Social Login.
+- **Bill Payment System**: Users can pay various bills (electricity, gas, internet, water, etc.).
+- **Payment Confirmation**: Confirmation of successful payments with visual indicators (e.g., green tick).
+- **Profile Management**: Update user name, photo, and view balance.
+- **Responsive UI**: Fully responsive design using **Tailwind CSS** and **DaisyUI**.
+- **Dynamic Content**: Carousel for displaying organizations/banks, with SwiperJS.
+- **Notifications**: Real-time success/error messages using **React Hot Toast**.
+- **Filter Bills**: Drop-down menu for filtering bills by type (e.g., Electricity, Gas).
 
-## Key Features
-- User Authentication (Login, Register, and Google Social Login)
-- Bill Payment System (Electricity, Gas, Internet, Water, Credit Cards, Tuition, etc.)
-- Bill Details and Payment Confirmation
-- User Profile Management (Update Name, Photo-URL)
-- Responsive Design with Tailwind CSS and DaisyUI
-- SwiperJS for Sliders and Carousels
-- Toast Notifications for Success/Error Messages
+## Tech Stack
+- **Frontend**:  
+  - **React**: A JavaScript library for building user interfaces.
+  - **Tailwind CSS**: A utility-first CSS framework for styling.
+  - **DaisyUI**: A Tailwind plugin for pre-built UI components.
+  - **SwiperJS**: A touch slider for carousels.
+  - **React Router**: For client-side routing.
+
+- **Backend**:  
+  - **Firebase**: Provides backend services including authentication.
 
 ## Dependencies
-The following npm packages are used in the project:
+### Core Dependencies
+- **@tailwindcss/vite**: Tailwind CSS plugin for Vite.
+- **daisyui**: Tailwind plugin for UI components.
+- **firebase**: For user authentication and backend services.
+- **lottie-react**: For integrating Lottie animations.
+- **react**: A JavaScript library for building UIs.
+- **react-dom**: DOM bindings for React.
+- **react-hot-toast**: For displaying toast notifications.
+- **react-icons**: Icons for React.
+- **react-router**: Routing library for navigation in React.
+- **swiper**: For building touch-friendly carousels.
+- **tailwindcss**: Utility-first CSS framework.
 
-- **@tailwindcss/vite**: Tailwind CSS plugin for Vite
-- **daisyui**: A plugin for Tailwind CSS for easy UI components
-- **firebase**: Firebase SDK for user authentication and other services
-- **lottie-react**: For integrating Lottie animations in React
-- **react**: The React library for building the user interface
-- **react-dom**: The React DOM library for rendering React components
-- **react-hot-toast**: For displaying toast notifications
-- **react-icons**: Icons library for React components
-- **react-router**: For routing and navigation in React
-- **swiper**: A modern mobile touch slider for building carousels
-- **tailwindcss**: A utility-first CSS framework for styling
+### Development Dependencies
+- **@eslint/js**: ESLint configuration for JavaScript.
+- **@types/react**: TypeScript types for React.
+- **@types/react-dom**: TypeScript types for React DOM.
+- **@vitejs/plugin-react**: Vite plugin for React support.
+- **eslint**: Linting tool for ensuring code quality.
+- **eslint-plugin-react-hooks**: ESLint plugin for React hooks.
+- **eslint-plugin-react-refresh**: Plugin for React Refresh.
+- **globals**: Global variables in JavaScript.
+- **vite**: Next-generation, fast build tool.
 
-## DevDependencies
-Development-related packages:
+## Installation
 
-- **@eslint/js**: A collection of ESLint configurations
-- **@types/react**: TypeScript types for React
-- **@types/react-dom**: TypeScript types for React DOM
-- **@vitejs/plugin-react**: Vite plugin for React support
-- **eslint**: Linter for JavaScript and JSX code quality
-- **eslint-plugin-react-hooks**: ESLint plugin for React hooks linting
-- **eslint-plugin-react-refresh**: ESLint plugin for React Refresh
-- **globals**: A set of global variables used in JavaScript
-- **vite**: A fast development server and build tool for modern web applications
-
-## Scripts
-
-- **dev**: `vite` - Start the development server.
-- **build**: `vite build` - Build the production application.
-- **lint**: `eslint .` - Lint the project files.
-- **preview**: `vite preview` - Preview the production build.
-
-
+### Clone the Repository
+```bash
+git clone https://github.com/sniekdho/paybondhu.git
+cd paybondhu
