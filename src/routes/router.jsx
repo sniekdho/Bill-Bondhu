@@ -8,6 +8,8 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PrivateRoute from "./PrivateRoute";
+import Profile from "../pages/Profile";
+import UpdateProfile from "../pages/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +42,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <h2>Profile Page</h2>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/update-profile",
+        element: (
+          <PrivateRoute>
+            <UpdateProfile></UpdateProfile>
+          </PrivateRoute>
+        ),
       },
     ],
   },

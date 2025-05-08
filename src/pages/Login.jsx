@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const { setUser, signInUser } = use(AuthContext);
+  const { setUser, signInUser, googleSignInUser } = use(AuthContext);
   const [showEye, setShowEye] = useState(false);
 
   const navigate = useNavigate();
@@ -23,7 +23,20 @@ const Login = () => {
         const user = result.user;
         setUser(user);
         navigate(location?.state || "/");
-        alert("✅ Login Successful! Welcome, " + " 🎉");
+        toast("✅ Login Successful! Welcome, " + " 🎉");
+      })
+      .catch((error) => {
+        toast(`Login failed: ${error.message}`);
+      });
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignInUser()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        navigate(location?.state || "/");
+        toast("✅ Login Successful! Welcome, " + " 🎉");
       })
       .catch((error) => {
         toast(`Login failed: ${error.message}`);
@@ -107,7 +120,10 @@ const Login = () => {
 
             <div className="divider">OR</div>
 
-            <button className="btn btn-outline w-full">
+            <button
+              onClick={handleGoogleSignIn}
+              className="btn btn-outline w-full"
+            >
               Continue with Google
             </button>
 

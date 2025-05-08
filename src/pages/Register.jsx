@@ -5,7 +5,8 @@ import { AuthContext } from "../contexts/AuthContext";
 import toast from "react-hot-toast";
 
 const Register = () => {
-  const { setUser, createUser, updateUserProfile } = use(AuthContext);
+  const { setUser, createUser, updateUserProfile, googleSignInUser } =
+    use(AuthContext);
   const [showEye, setShowEye] = useState(false);
 
   const navigate = useNavigate();
@@ -66,6 +67,19 @@ const Register = () => {
           .catch((error) => {
             toast.error("Profile update failed: " + error.message);
           });
+      })
+      .catch((error) => {
+        toast.error(`Registration failed: ${error.message}`);
+      });
+  };
+
+  const handleGoogleSignUp = () => {
+    googleSignInUser()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        navigate(location?.state || "/");
+        toast.success("Account created successfully!");
       })
       .catch((error) => {
         toast.error(`Registration failed: ${error.message}`);
@@ -180,7 +194,10 @@ const Register = () => {
 
             <div className="divider">OR</div>
 
-            <button className="btn btn-outline w-full">
+            <button
+              onClick={handleGoogleSignUp}
+              className="btn btn-outline w-full"
+            >
               Sign Up with Google
             </button>
 
