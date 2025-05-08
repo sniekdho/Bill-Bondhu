@@ -45,20 +45,20 @@ const Register = () => {
     }
 
     createUser(email, password)
-      .then((result) => {
-        const user = result.user;
+      .then(() => {
+        const user = {
+          balance: 10000,
+        };
 
         updateUserProfile({
           displayName: name,
           photoURL: photoUrl,
-          balance: 10000,
         })
           .then(() => {
             setUser({
               ...user,
               displayName: name,
               photoURL: photoUrl,
-              balance: 10000,
             });
             form.reset();
             navigate(location?.state || "/");
